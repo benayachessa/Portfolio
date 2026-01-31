@@ -1,5 +1,7 @@
 ---
-// src/components/Profile.astro
+import { Image } from 'astro:assets';
+import ProfilImg from '../assets/me.png'
+
 const skills = [
   "Astro", "React", "Tailwind CSS", "Firebase", "TypeScript", "Node.js"
 ];
@@ -14,7 +16,7 @@ const skills = [
       
       <div class="relative w-80 h-80 md:w-[500px] md:h-[500px] rounded-2xl overflow-hidden border-2 border-white/10 rotate-3 hover:rotate-0 transition-all duration-500 shadow-2xl">
         <img 
-          src="/src/assets/me.png" 
+          src={ProfilImg.src} 
           alt="Foto Profil" 
           class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
         />
