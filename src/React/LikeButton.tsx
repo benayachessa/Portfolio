@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { doc, onSnapshot, updateDoc, increment } from "firebase/firestore";
+import {
+  doc,
+  onSnapshot,
+  updateDoc,
+  increment,
+  setDoc,
+  getDoc,
+} from "firebase/firestore";
+// PERHATIKAN: Path ini harus sesuai dengan lokasi file langkah 1 tadi
 import { db } from "../firebase";
 
 const LikeButton = () => {
@@ -10,6 +18,10 @@ const LikeButton = () => {
   const [animateLikes, setAnimateLikes] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
+  // Ganti "counter" dengan nama dokumen yang Anda mau di database
+  const DOC_ID = "counter";
+  const COLLECTION_NAME = "likes";
+
   useEffect(() => {
     setIsClient(true);
 
@@ -19,7 +31,7 @@ const LikeButton = () => {
     }
 
     // Listen for realtime updates from Firestore
-    const likeDocRef = doc(db, "likes", "counter");
+    const likeDocRef = doc(db, COLLECTION_NAME, DOC_ID);
     const unsubscribe = onSnapshot(likeDocRef, (docSnap) => {
       if (docSnap.exists()) {
         const currentLikes = docSnap.data().likes;
@@ -27,7 +39,8 @@ const LikeButton = () => {
         setAnimateLikes(true);
         setTimeout(() => setAnimateLikes(false), 300);
       } else {
-        console.log("Document does not exist.");
+        // Jika dokumen belum ada, set 0
+        setLikes(0);
       }
     });
 
@@ -51,10 +64,21 @@ const LikeButton = () => {
 
     try {
       setIsProcessing(true);
-      const likeDocRef = doc(db, "likes", "counter");
-      await updateDoc(likeDocRef, {
-        likes: increment(1),
-      });
+      const likeDocRef = doc(db, COLLECTION_NAME, DOC_ID);
+
+      // Cek dulu apakah dokumen sudah ada
+      const docSnap = await getDoc(likeDocRef);
+
+      if (!docSnap.exists()) {
+        // Jika belum ada, buat baru
+        await setDoc(likeDocRef, { likes: 1 });
+      } else {
+        // Jika sudah ada, update tambah 1
+        await updateDoc(likeDocRef, {
+          likes: increment(1),
+        });
+      }
+
       setIsLiked(true);
       localStorage.setItem("websiteIsLiked", "true");
       triggerLikeAnimation();
@@ -67,6 +91,7 @@ const LikeButton = () => {
 
   if (!isClient) return null;
 
+  // Pastikan variabel CSS (--sec, --white-icon) ada di global.css Anda
   const borderColorClass = isLiked
     ? "border-[var(--sec)]"
     : "border-[var(--white-icon)]";

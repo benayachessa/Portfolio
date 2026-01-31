@@ -1,13 +1,11 @@
 ---
 import { Image } from "astro:assets";
-import svgl from "../../public/svgl.png";
-import stockin from "../../public/stockin.png";
-import sragen from "../../public/sragen.png";
-import velez from "../../public/velez.png";
+import sragen from "../assets/sragen.png";
+import moneyrecord from "../assets/money-record.png";
 
 interface Project {
   title: string;
-  image: ImageMetadata;
+  image: ImageData;
   link: string;
   preview: string;
   status: string;
@@ -23,14 +21,15 @@ const projects: Project[] = [
     preview: "https://sragenrame-rame.vercel.app/",
     status: "On Development",
   },
-  /*
+  
   {
-    title: "StockIn",
-    image: stockin as ImageMetadata,
-    link: "https://github.com/gothsec/stockin-demo",
-    preview: "https://stockin-demo.vercel.app",
+    title: "Money Record",
+    image: moneyrecord as ImageMetadata,
+    link: "https://github.com/benayachessa/Money-Record.git",
+    preview: "https://money-record-frontend.vercel.app/",
     status: "On Development",
   },
+  /*
   {
     title: "Svgl.app",
     image: svgl as ImageMetadata,
@@ -121,7 +120,7 @@ const projects: Project[] = [
     </div>
     <a
       target="_blank"
-      href="https://github.com/benayachessa?tab=repositories"
+      href="https://github.com/benayachessa"
       aria-label="GitHub"
       class="w-full flex items-center justify-center gap-2 mt-9 text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-[var(--white-icon-tr)] p-3 rounded-full bg-[#1414149c] hover:bg-[var(--white-icon-tr)] hover:scale-105"
     >
