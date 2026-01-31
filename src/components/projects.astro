@@ -1,11 +1,12 @@
 ---
+import type { ImageMetadata } from 'astro:assets';
 import { Image } from "astro:assets";
 import sragen from "../assets/sragen.png";
 import moneyrecord from "../assets/money-record.png";
 
 interface Project {
   title: string;
-  image: ImageData;
+  image: ImageMetadata;
   link: string;
   preview: string;
   status: string;
@@ -16,7 +17,7 @@ const projects: Project[] = [
   
   {
     title: "Rekomendasi Wisata Sragen",
-    image: sragen as ImageMetadata,
+    image: sragen,
     link: "https://github.com/benayachessa/Skripsi.git",
     preview: "https://sragenrame-rame.vercel.app/",
     status: "On Development",
@@ -24,7 +25,7 @@ const projects: Project[] = [
   
   {
     title: "Money Record",
-    image: moneyrecord as ImageMetadata,
+    image: moneyrecord,
     link: "https://github.com/benayachessa/Money-Record.git",
     preview: "https://money-record-frontend.vercel.app/",
     status: "On Development",
