@@ -27,5 +27,8 @@
     "astro": "^5.16.12",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.57.1"
   }
 }
